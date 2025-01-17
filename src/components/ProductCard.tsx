@@ -1,27 +1,31 @@
+import { IProduct } from "../interfaces"
+import { txtSlicer } from "../utils/function"
 import Image from "./Image"
 import Button from "./ui/Button"
 
-// interface IProps {
+interface IProps {
+   product: IProduct
+}
 
-// }
-
-const ProductCard = ({ }: IProps) => {
+const ProductCard = ({ product }: IProps) => {
+    const { title, description, imageURL, price, colors, category } = product;
     return (
-        <div className="border p-2 rounded-md flex flex-col ">
-            <Image imageURL={"https://images.pexels.com/photos/30230100/pexels-photo-30230100/free-photo-of-stunning-alpine-mountain-peak-with-clear-blue-sky.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"} alt={"product"} className="w-full rounded-md" />
+        <div className="border p-2 rounded-md flex flex-col max-w-sm md:max-w-lg mx-auto ">
+            <Image imageURL={imageURL} alt={"product"} className="w-full rounded-md " />
             {/* <img src="https://images.pexels.com/photos/30230100/pexels-photo-30230100/free-photo-of-stunning-alpine-mountain-peak-with-clear-blue-sky.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="product" className="w-full" /> */}
-            <h3>Product Name</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati dolor quae quia, nobis odio maiores necessitatibus hic cupiditate voluptatibus tenetur eligendi expedita voluptatem rem qui in molestias est cumque totam.</p>
+            <h3>{title}</h3>
+            <p>{txtSlicer(description)}</p>
 
             <div className="flex items-center my-4 space-x-2">
-                <span className="w-5 h-5 rounded-full cursor-pointer bg-red-600" />
+            {colors.map((color) => (<span style={{ backgroundColor: color }} key={color} className="w-5 h-5 rounded-full cursor-pointer " />))}
+                {/* <span className="w-5 h-5 rounded-full cursor-pointer bg-red-600" />
                 <span className="w-5 h-5 rounded-full cursor-pointer bg-blue-600" />
-                <span className="w-5 h-5 rounded-full cursor-pointer bg-yellow-400" />
+                <span className="w-5 h-5 rounded-full cursor-pointer bg-yellow-400" /> */}
             </div>
 
             <div className="flex justify-between items-center">
-                <span>$1000</span>
-                <Image imageURL={"https://images.pexels.com/photos/30230100/pexels-photo-30230100/free-photo-of-stunning-alpine-mountain-peak-with-clear-blue-sky.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"} alt={"product"} className="w-10 h-10 rounded-full object-center" />
+                <span>${price}</span>
+                <Image imageURL={category.imageURL} alt={"product"} className="w-10 h-10 rounded-full object-center" />
                 {/* <img src="https://images.pexels.com/photos/30230100/pexels-photo-30230100/free-photo-of-stunning-alpine-mountain-peak-with-clear-blue-sky.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="product" className="w-10 h-10 rounded-full" /> */}
             </div>
 
